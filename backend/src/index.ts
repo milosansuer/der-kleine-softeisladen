@@ -6,6 +6,7 @@ import authRoutes from './routes/auth';
 import productRoutes from './routes/products';
 import userRoutes from './routes/users';
 import settingRoutes from './routes/settings';
+import messageRoutes from './routes/messages';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/settings', settingRoutes);
+app.use('/api/messages', messageRoutes);
 
 // Basic health check
 app.get('/health', (req, res) => {

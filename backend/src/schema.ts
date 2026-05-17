@@ -25,6 +25,14 @@ export async function initDb() {
       key TEXT PRIMARY KEY,
       value TEXT
     );
+
+    CREATE TABLE IF NOT EXISTS messages (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      message TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   // Initialize announcement setting

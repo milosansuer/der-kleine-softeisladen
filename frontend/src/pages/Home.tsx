@@ -19,6 +19,11 @@ const Home: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
 
+  // Form state
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formStatus, setFormStatus] = useState<{ type: 'success' | 'error' | null, text: string }>({ type: null, text: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -46,6 +51,22 @@ const Home: React.FC = () => {
     const interval = setInterval(checkOpenStatus, 60000);
     return () => clearInterval(interval);
   }, []);
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setFormStatus({ type: null, text: '' });
+
+    try {
+      await client.post('/messages', formData);
+      setFormStatus({ type: 'success', text: 'Vielen Dank! Deine Nachricht wurde erfolgreich gesendet.' });
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      setFormStatus({ type: 'error', text: 'Fehler beim Senden. Bitte versuche es später erneut.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const iceCreams = products.filter(p => p.type === 'icecream' && p.is_available);
   const waffles = products.filter(p => p.type === 'waffle' && p.is_available);
@@ -311,21 +332,52 @@ const Home: React.FC = () => {
             
             <motion.div {...fadeIn} transition={{ delay: 0.2 }} className="md:w-1/2 bg-white p-12 text-slate-800">
               <h3 className="font-serif text-3xl font-bold mb-8 italic">Schreib uns</h3>
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              
+              {formStatus.type && (
+                <div className={`mb-6 p-4 rounded-xl text-sm font-bold ${formStatus.type === 'success' ? 'bg-brand-green/20 text-slate-800' : 'bg-red-50 text-red-600'}`}>
+                  {formStatus.text}
+                </div>
+              )}
+
+              <form className="space-y-6" onSubmit={handleContactSubmit}>
                 <div className="border-b border-slate-200 py-2">
                   <label className="block text-xs font-bold text-brand-green uppercase tracking-widest mb-1">Name</label>
-                  <input type="text" className="w-full bg-transparent focus:outline-none font-medium" placeholder="Deine Nachricht an uns" />
+                  <input 
+                    type="text" 
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full bg-transparent focus:outline-none font-medium text-slate-800" 
+                    placeholder="Dein Name" 
+                  />
                 </div>
                 <div className="border-b border-slate-200 py-2">
                   <label className="block text-xs font-bold text-brand-green uppercase tracking-widest mb-1">E-Mail</label>
-                  <input type="email" className="w-full bg-transparent focus:outline-none font-medium" placeholder="email@beispiel.de" />
+                  <input 
+                    type="email" 
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full bg-transparent focus:outline-none font-medium text-slate-800" 
+                    placeholder="email@beispiel.de" 
+                  />
                 </div>
                 <div className="border-b border-slate-200 py-2">
                   <label className="block text-xs font-bold text-brand-green uppercase tracking-widest mb-1">Nachricht</label>
-                  <textarea className="w-full bg-transparent focus:outline-none font-medium h-24" placeholder="Wie können wir dir helfen?"></textarea>
+                  <textarea 
+                    required
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full bg-transparent focus:outline-none font-medium h-24 text-slate-800" 
+                    placeholder="Wie können wir dir helfen?"
+                  ></textarea>
                 </div>
-                <button className="w-full bg-slate-800 text-white font-bold py-4 hover:bg-brand-green hover:text-slate-800 transition-all uppercase tracking-widest mt-4">
-                  Nachricht senden
+                <button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="w-full bg-slate-800 text-white font-bold py-4 hover:bg-brand-green hover:text-slate-800 transition-all uppercase tracking-widest mt-4 disabled:opacity-50"
+                >
+                  {isSubmitting ? 'Wird gesendet...' : 'Nachricht senden'}
                 </button>
               </form>
             </motion.div>

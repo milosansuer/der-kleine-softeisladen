@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, ShoppingBasket, UserPlus, Plus, Edit, Trash2, Check, X, AlertCircle } from 'lucide-react';
+import { LayoutDashboard, ShoppingBasket, UserPlus, Plus, Edit, Trash2, Check, X, AlertCircle, Mail, MessageSquare } from 'lucide-react';
 import client from '../api/client';
 
 interface Product {
@@ -43,6 +43,13 @@ const AdminDashboard: React.FC = () => {
             Einstellungen
           </Link>
           <Link 
+            to="/admin/messages" 
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${location.pathname === '/admin/messages' ? 'bg-brand-green/20 text-slate-800 font-bold' : 'text-slate-500 hover:bg-slate-50'}`}
+          >
+            <Mail size={20} />
+            Nachrichten
+          </Link>
+          <Link 
             to="/admin/invite" 
             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${location.pathname === '/admin/invite' ? 'bg-brand-green/20 text-slate-800 font-bold' : 'text-slate-500 hover:bg-slate-50'}`}
           >
@@ -58,6 +65,7 @@ const AdminDashboard: React.FC = () => {
           <Route path="/" element={<DashboardHome />} />
           <Route path="/products" element={<ProductManagement />} />
           <Route path="/settings" element={<GeneralSettings />} />
+          <Route path="/messages" element={<MessageInbox />} />
           <Route path="/invite" element={<InviteAdmin />} />
         </Routes>
       </main>
@@ -75,6 +83,12 @@ const DashboardHome: React.FC = () => {
           <p className="text-2xl font-bold text-slate-800">Menü aktualisieren</p>
           <p className="text-slate-500 mt-2">Ändere Preise oder Verfügbarkeiten deiner Sorten.</p>
           <Link to="/admin/products" className="inline-block mt-6 text-brand-green font-bold hover:underline bg-slate-800 px-4 py-2 rounded-lg">Zum Menü →</Link>
+        </div>
+        <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+          <h3 className="text-slate-500 font-medium mb-2 uppercase tracking-wider text-xs">Neuigkeiten</h3>
+          <p className="text-2xl font-bold text-slate-800">Posteingang</p>
+          <p className="text-slate-500 mt-2">Prüfe deine neuen Kundenanfragen.</p>
+          <Link to="/admin/messages" className="inline-block mt-6 text-brand-green font-bold hover:underline bg-slate-800 px-4 py-2 rounded-lg">Zu den Nachrichten →</Link>
         </div>
       </div>
     </div>
@@ -463,6 +477,81 @@ const GeneralSettings: React.FC = () => {
           </button>
         </form>
       </div>
+    </div>
+  );
+};
+
+const MessageInbox: React.FC = () => {
+  const [messages, setMessages] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
+  const fetchMessages = async () => {
+    try {
+      const response = await client.get('/messages');
+      setMessages(response.data);
+    } catch (error) {
+      console.error('Failed to fetch messages', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (!window.confirm('Nachricht wirklich löschen?')) return;
+    try {
+      await client.delete(`/messages/${id}`);
+      fetchMessages();
+    } catch (error) {
+      alert('Fehler beim Löschen.');
+    }
+  };
+
+  if (loading) return <div className="animate-pulse text-slate-400 font-bold italic">Lade Posteingang...</div>;
+
+  return (
+    <div>
+      <h1 className="font-serif text-3xl font-bold text-slate-800 mb-8 italic">Posteingang</h1>
+      
+      {messages.length === 0 ? (
+        <div className="bg-white p-12 rounded-3xl text-center border border-slate-100 shadow-sm">
+          <MessageSquare className="mx-auto text-slate-200 mb-4" size={48} />
+          <p className="text-slate-500 font-medium italic">Keine neuen Nachrichten vorhanden.</p>
+        </div>
+      ) : (
+        <div className="grid gap-6">
+          {messages.map((msg) => (
+            <div key={msg.id} className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 relative group transition-all hover:shadow-md">
+              <button 
+                onClick={() => handleDelete(msg.id)}
+                className="absolute top-6 right-6 p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all opacity-0 group-hover:opacity-100"
+              >
+                <Trash2 size={20} />
+              </button>
+              
+              <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-brand-green/20 rounded-2xl flex items-center justify-center text-slate-800 font-bold">
+                  {msg.name.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-800 text-lg">{msg.name}</h3>
+                  <a href={`mailto:${msg.email}`} className="text-brand-green hover:underline text-sm font-medium">{msg.email}</a>
+                </div>
+                <div className="md:ml-auto text-xs text-slate-400 font-bold uppercase tracking-widest">
+                  {new Date(msg.created_at).toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                </div>
+              </div>
+              
+              <p className="text-slate-600 leading-relaxed italic bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                "{msg.message}"
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
