@@ -3,6 +3,7 @@
 @theme {
   --font-serif: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
+  --color-brand-green: #98fb98; /* Ein helles Frühlingsgrün passend zum Laden */
   --color-brand-blue: #008eb0;
   --color-brand-cream: #fffaf5;
 }
@@ -21,8 +22,8 @@
       45deg,
       transparent,
       transparent 20px,
-      rgba(0, 142, 176, 0.03) 20px,
-      rgba(0, 142, 176, 0.03) 40px
+      rgba(152, 251, 152, 0.05) 20px,
+      rgba(152, 251, 152, 0.05) 40px
     );
   }
   

@@ -47,11 +47,11 @@ const Home: React.FC = () => {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&q=80&w=2000" 
-            className="w-full h-full object-cover grayscale-[10%] brightness-75"
+            src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAG-exECJ1GgIkpnhrDV_aOX0QLJr5PUc16vosCMs1pg1B3Dl8MQwOlKe7kRxvHUDOzUujRdx92NcuPxsaUgxR65sEkEQawdY_OhEQF_Th_B7srJ3oRU488RAWqYBi9UTgp_2Oy2lQ=w2000" 
+            className="w-full h-full object-cover brightness-75"
             alt="Der kleine Softeis-Laden"
           />
-          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="absolute inset-0 bg-black/10"></div>
         </div>
         
         <div className="container mx-auto px-6 text-center z-10">
@@ -64,15 +64,15 @@ const Home: React.FC = () => {
               Der kleine <br /> 
               <span className="text-white not-italic">Softeis-Laden</span>
             </h1>
-            <div className="w-24 h-1 bg-white mx-auto mb-8"></div>
-            <p className="text-white text-xl md:text-2xl mb-12 max-w-2xl mx-auto font-medium tracking-wide">
+            <div className="w-24 h-1 bg-brand-green mx-auto mb-8"></div>
+            <p className="text-white text-xl md:text-2xl mb-12 max-w-2xl mx-auto font-medium tracking-wide text-shadow">
               Handgezapftes Glück in Berlin-Adlershof. <br />
               Cremig, frisch und immer ein Lächeln inklusive.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <a 
                 href="#menu" 
-                className="bg-brand-blue text-white hover:bg-white hover:text-brand-blue px-10 py-5 rounded-none font-bold text-lg transition-all shadow-xl uppercase tracking-widest"
+                className="bg-brand-green text-slate-800 hover:bg-white px-10 py-5 rounded-none font-bold text-lg transition-all shadow-xl uppercase tracking-widest"
               >
                 Menü ansehen
               </a>
@@ -94,7 +94,7 @@ const Home: React.FC = () => {
       <section className="py-20 bg-white bg-stripes">
         <div className="container mx-auto px-6 text-center">
           <motion.div {...fadeIn}>
-            <p className="font-serif text-3xl md:text-4xl italic text-brand-blue max-w-4xl mx-auto leading-relaxed">
+            <p className="font-serif text-3xl md:text-4xl italic text-brand-green max-w-4xl mx-auto leading-relaxed bg-slate-800/5 py-8 rounded-full px-12">
               "Ein Tag ohne Softeis ist möglich, aber sinnlos. Wir servieren Kindheitserinnerungen in der Waffel."
             </p>
           </motion.div>
@@ -105,25 +105,25 @@ const Home: React.FC = () => {
       <section id="menu" className="py-24 bg-brand-cream relative">
         <div className="container mx-auto px-6 max-w-5xl">
           <motion.div {...fadeIn} className="text-center mb-20">
-            <span className="text-brand-blue font-bold tracking-[0.2em] uppercase text-sm mb-4 block">Hausgemacht</span>
-            <h2 className="font-serif text-5xl md:text-6xl font-bold text-slate-800 italic">Unsere Speisekarte</h2>
-            <div className="w-20 h-0.5 bg-brand-blue mx-auto mt-6"></div>
+            <span className="text-brand-green font-bold tracking-[0.2em] uppercase text-sm mb-4 block bg-slate-800 text-white inline-block px-4 py-1">Hausgemacht</span>
+            <h2 className="font-serif text-5xl md:text-6xl font-bold text-slate-800 italic mt-4">Unsere Speisekarte</h2>
+            <div className="w-20 h-0.5 bg-brand-green mx-auto mt-6"></div>
           </motion.div>
 
           {loading ? (
             <div className="flex justify-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-blue"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-green"></div>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 gap-x-20 gap-y-16">
               {/* Ice Cream & Waffles */}
               <motion.div {...fadeIn}>
-                <h3 className="font-serif text-3xl font-bold text-brand-blue mb-10 border-b border-brand-blue/20 pb-4 italic">Eis & Waffeln</h3>
+                <h3 className="font-serif text-3xl font-bold text-slate-800 mb-10 border-b border-brand-green pb-4 italic">Eis & Waffeln</h3>
                 <div className="space-y-8">
                   {[...iceCreams, ...waffles].map(item => (
                     <div key={item.id} className="group">
                       <div className="flex justify-between items-end mb-1">
-                        <span className="font-serif text-xl font-bold group-hover:text-brand-blue transition-colors">{item.name}</span>
+                        <span className="font-serif text-xl font-bold group-hover:text-brand-green transition-colors">{item.name}</span>
                         <div className="flex-grow border-b border-dotted border-slate-300 mx-4 mb-1.5"></div>
                         <span className="font-serif font-bold text-lg">{item.price > 0 ? `${item.price.toFixed(2)}€` : 'Inkl.'}</span>
                       </div>
@@ -135,12 +135,12 @@ const Home: React.FC = () => {
 
               {/* Toppings & Extras */}
               <motion.div {...fadeIn} transition={{ delay: 0.2 }}>
-                <h3 className="font-serif text-3xl font-bold text-brand-blue mb-10 border-b border-brand-blue/20 pb-4 italic">Toppings & Extras</h3>
+                <h3 className="font-serif text-3xl font-bold text-slate-800 mb-10 border-b border-brand-green pb-4 italic">Toppings & Extras</h3>
                 <div className="space-y-8">
                   {toppings.map(item => (
                     <div key={item.id} className="group">
                       <div className="flex justify-between items-end mb-1">
-                        <span className="font-serif text-xl font-bold group-hover:text-brand-blue transition-colors">{item.name}</span>
+                        <span className="font-serif text-xl font-bold group-hover:text-brand-green transition-colors">{item.name}</span>
                         <div className="flex-grow border-b border-dotted border-slate-300 mx-4 mb-1.5"></div>
                         <span className="font-serif font-bold text-lg">{item.price.toFixed(2)}€</span>
                       </div>
@@ -150,8 +150,8 @@ const Home: React.FC = () => {
                 </div>
                 
                 {/* Visual Accent */}
-                <div className="mt-16 p-8 bg-white border border-brand-blue/10 shadow-sm relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-brand-blue/5 -mr-12 -mt-12 rounded-full"></div>
+                <div className="mt-16 p-8 bg-white border border-brand-green shadow-sm relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-brand-green/10 -mr-12 -mt-12 rounded-full"></div>
                   <p className="font-serif italic text-lg text-slate-700 relative z-10">
                     "Kombiniere deine Favoriten! Unsere Mitarbeiter beraten dich gerne für die perfekte Mischung."
                   </p>
@@ -175,12 +175,12 @@ const Home: React.FC = () => {
             >
               <div className="relative z-10">
                 <img 
-                  src="https://images.unsplash.com/photo-1560008511-11c63416e52d?auto=format&fit=crop&q=80&w=1000" 
+                  src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGb-lVQiXIqvzaCvc7_I6yiV1JpDfQBjNUEwQwOQX-3EskMvDvEi8-tXHjp0mriCfH5nBegpC0mb9KJMy140ADgfDdthBSXblxMOa1RaxOdz2NlgUgAnWRJsxVB1M9Tyf8YgZ3H=w1000" 
                   alt="Unser Laden in Adlershof" 
-                  className="rounded-none shadow-2xl border-[15px] border-white"
+                  className="rounded-none shadow-2xl border-[15px] border-brand-green"
                 />
               </div>
-              <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-brand-blue/10 -z-0"></div>
+              <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-brand-green/20 -z-0"></div>
               <div className="absolute -top-10 -left-10 w-40 h-40 bg-stripes -z-0"></div>
             </motion.div>
 
@@ -191,19 +191,19 @@ const Home: React.FC = () => {
               transition={{ duration: 1 }}
               className="md:w-1/2"
             >
-              <span className="text-brand-blue font-bold tracking-[0.2em] uppercase text-sm mb-4 block underline decoration-brand-blue/30 underline-offset-8">Unsere Geschichte</span>
-              <h2 className="font-serif text-5xl font-bold text-slate-800 mb-8 italic">Tradition in <br /> Blau & Weiß</h2>
+              <span className="text-brand-green font-bold tracking-[0.2em] uppercase text-sm mb-4 block underline decoration-brand-green/30 underline-offset-8 bg-slate-800 inline-block px-3">Unsere Geschichte</span>
+              <h2 className="font-serif text-5xl font-bold text-slate-800 mb-8 italic">Tradition in <br /> Grün & Weiß</h2>
               <p className="text-slate-600 text-lg leading-relaxed mb-6 font-medium">
                 Seit Jahren ist unser kleiner Laden in der Dörpfeldstraße eine feste Instanz für alle, die das Besondere suchen. Wir verzichten auf Schnickschnack und konzentrieren uns auf das Wesentliche: den perfekten Swirl.
               </p>
               <p className="text-slate-600 text-lg leading-relaxed mb-10">
-                Inspiriert von der klassischen Ästhetik europäischer Cafés, bieten wir eine Atmosphäre, die zum Verweilen einlädt. Bei uns ist jeder Gast willkommen – vom kleinen Entdecker bis zum lebenslangen Genießer.
+                Unsere helle, grüne Fassade lädt dich ein, einen Moment innezuhalten. Bei uns ist jeder Gast willkommen – vom kleinen Entdecker bis zum lebenslangen Genießer.
               </p>
               <a 
                 href="https://www.google.com/maps/place/Der+kleine+Softeis-Laden/@52.4158385,13.5783147,17z" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-slate-800 text-white px-8 py-4 hover:bg-brand-blue transition-all uppercase tracking-widest text-sm font-bold"
+                className="inline-flex items-center gap-3 bg-brand-green text-slate-800 px-8 py-4 hover:bg-slate-800 hover:text-white transition-all uppercase tracking-widest text-sm font-bold"
               >
                 Google Maps <ExternalLink size={18} />
               </a>
@@ -218,20 +218,16 @@ const Home: React.FC = () => {
           <motion.div {...fadeIn} className="text-center mb-16">
             <h2 className="font-serif text-4xl font-bold italic">Impressionen</h2>
           </motion.div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[1, 2, 3, 4].map(i => (
-              <motion.div 
-                key={i}
-                whileHover={{ scale: 1.05 }}
-                className="aspect-square bg-white shadow-lg p-3 border border-slate-100"
-              >
-                <img 
-                  src={`https://images.unsplash.com/photo-15${i === 1 ? '72312673420-4320986fa887' : i === 2 ? '80918307044-d40348a0ec3a' : i === 3 ? '60008511-11c63416e52d' : '501443762994-82bd5dace89a'}?auto=format&fit=crop&q=80&w=500`}
-                  className="w-full h-full object-cover"
-                  alt="Galerie"
-                />
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+            <motion.div whileHover={{ scale: 1.05 }} className="bg-white shadow-lg p-3 border border-brand-green">
+              <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGEip6uarkedeYfMivBKCh5GzpOPEAzcHI6U5W6G2uJ3qdnKw0oiQjTieIUcRvNagSfdhHPQ5zeOBLK20SwwnObaM0sCt9aTfEoiKTTzdKVubqrPLEqT0xFb0zTjHCw0L8pkTNYqxnUvjRX=w1000" className="w-full h-[400px] object-cover" alt="Softeis" />
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} className="bg-white shadow-lg p-3 border border-brand-green">
+              <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFMm_Ia-czTgZbHc2D2xNg6opCPwlBJEMvXZegCn0VtNGYY2Gad2nnMatat002BtqVgDV5TL_t43FQdOOwUohOlwClWSP97RnqaP7_VU7IrAHy4cVJLE5Bi_tYzw4G99lYaQyRFXg=w1000" className="w-full h-[400px] object-cover" alt="Waffel" />
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} className="bg-white shadow-lg p-3 border border-brand-green">
+              <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGb-lVQiXIqvzaCvc7_I6yiV1JpDfQBjNUEwQwOQX-3EskMvDvEi8-tXHjp0mriCfH5nBegpC0mb9KJMy140ADgfDdthBSXblxMOa1RaxOdz2NlgUgAnWRJsxVB1M9Tyf8YgZ3H=w1000" className="w-full h-[400px] object-cover" alt="Terasse" />
+            </motion.div>
           </div>
         </div>
       </section>
@@ -244,7 +240,7 @@ const Home: React.FC = () => {
               <h2 className="font-serif text-5xl font-bold mb-10 italic">Besuch uns</h2>
               <div className="space-y-10">
                 <div className="flex gap-6">
-                  <div className="w-12 h-12 bg-brand-blue flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 bg-brand-green text-slate-800 flex items-center justify-center shrink-0">
                     <MapPin size={24} />
                   </div>
                   <div>
@@ -253,7 +249,7 @@ const Home: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex gap-6">
-                  <div className="w-12 h-12 bg-brand-blue flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 bg-brand-green text-slate-800 flex items-center justify-center shrink-0">
                     <Clock size={24} />
                   </div>
                   <div>
@@ -262,7 +258,7 @@ const Home: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex gap-6">
-                  <div className="w-12 h-12 bg-brand-blue flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 bg-brand-green text-slate-800 flex items-center justify-center shrink-0">
                     <Phone size={24} />
                   </div>
                   <div>
@@ -277,18 +273,18 @@ const Home: React.FC = () => {
               <h3 className="font-serif text-3xl font-bold mb-8 italic">Schreib uns</h3>
               <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
                 <div className="border-b border-slate-200 py-2">
-                  <label className="block text-xs font-bold text-brand-blue uppercase tracking-widest mb-1">Name</label>
+                  <label className="block text-xs font-bold text-brand-green uppercase tracking-widest mb-1">Name</label>
                   <input type="text" className="w-full bg-transparent focus:outline-none font-medium" placeholder="Deine Nachricht an uns" />
                 </div>
                 <div className="border-b border-slate-200 py-2">
-                  <label className="block text-xs font-bold text-brand-blue uppercase tracking-widest mb-1">E-Mail</label>
+                  <label className="block text-xs font-bold text-brand-green uppercase tracking-widest mb-1">E-Mail</label>
                   <input type="email" className="w-full bg-transparent focus:outline-none font-medium" placeholder="email@beispiel.de" />
                 </div>
                 <div className="border-b border-slate-200 py-2">
-                  <label className="block text-xs font-bold text-brand-blue uppercase tracking-widest mb-1">Nachricht</label>
+                  <label className="block text-xs font-bold text-brand-green uppercase tracking-widest mb-1">Nachricht</label>
                   <textarea className="w-full bg-transparent focus:outline-none font-medium h-24" placeholder="Wie können wir dir helfen?"></textarea>
                 </div>
-                <button className="w-full bg-slate-800 text-white font-bold py-4 hover:bg-brand-blue transition-all uppercase tracking-widest mt-4">
+                <button className="w-full bg-slate-800 text-white font-bold py-4 hover:bg-brand-green hover:text-slate-800 transition-all uppercase tracking-widest mt-4">
                   Nachricht senden
                 </button>
               </form>
