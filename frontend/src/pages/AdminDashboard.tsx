@@ -130,7 +130,14 @@ const ProductManagement: React.FC = () => {
   };
 
   const startAdd = () => {
-    setEditingProduct({ name: '', description: '', price: 0, type: 'icecream', is_available: 1 });
+    console.log('Starting add product...');
+    setEditingProduct({ 
+      name: '', 
+      description: '', 
+      price: 0, 
+      type: 'icecream', 
+      is_available: 1 
+    });
     setIsAdding(true);
   };
 
