@@ -10,24 +10,41 @@ interface Product {
   price: number;
   type: string;
   is_available: number;
+  is_highlight: number;
 }
 
 const Home: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [settings, setSettings] = useState<any>({});
   const [loading, setLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
       try {
-        const response = await client.get('/products');
-        setProducts(response.data);
+        const [prodRes, settRes] = await Promise.all([
+          client.get('/products'),
+          client.get('/settings')
+        ]);
+        setProducts(prodRes.data);
+        setSettings(settRes.data);
       } catch (error) {
-        console.error('Failed to fetch products', error);
+        console.error('Failed to fetch data', error);
       } finally {
         setLoading(false);
       }
     };
-    fetchProducts();
+    fetchData();
+
+    // Check opening hours (12:00 - 18:00)
+    const checkOpenStatus = () => {
+      const now = new Date();
+      const hour = now.getHours();
+      setIsOpen(hour >= 12 && hour < 18);
+    };
+    checkOpenStatus();
+    const interval = setInterval(checkOpenStatus, 60000);
+    return () => clearInterval(interval);
   }, []);
 
   const iceCreams = products.filter(p => p.type === 'icecream' && p.is_available);
@@ -43,6 +60,13 @@ const Home: React.FC = () => {
 
   return (
     <div className="flex flex-col">
+      {/* Announcement Banner */}
+      {settings.announcement && (
+        <div className="bg-slate-800 text-brand-green py-2 px-6 text-center text-sm font-bold tracking-widest uppercase z-[60] fixed top-0 w-full animate-pulse border-b border-brand-green/20">
+          {settings.announcement}
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -69,6 +93,17 @@ const Home: React.FC = () => {
               Handgezapftes Glück in Berlin-Adlershof. <br />
               Cremig, frisch und immer ein Lächeln inklusive.
             </p>
+
+            {/* Live Status Badge */}
+            <div className="mb-12 flex justify-center">
+              <div className={`px-6 py-2 rounded-full border-2 flex items-center gap-3 backdrop-blur-md transition-all ${isOpen ? 'border-brand-green bg-brand-green/10 text-brand-green' : 'border-red-400 bg-red-400/10 text-red-400'}`}>
+                <div className={`w-3 h-3 rounded-full animate-ping ${isOpen ? 'bg-brand-green' : 'bg-red-400'}`}></div>
+                <span className="font-bold uppercase tracking-widest text-sm italic">
+                  {isOpen ? 'Jetzt geöffnet' : 'Aktuell geschlossen'}
+                </span>
+              </div>
+            </div>
+
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <a 
                 href="#menu" 
@@ -121,7 +156,12 @@ const Home: React.FC = () => {
                 <h3 className="font-serif text-3xl font-bold text-slate-800 mb-10 border-b border-brand-green pb-4 italic">Eis & Waffeln</h3>
                 <div className="space-y-8">
                   {[...iceCreams, ...waffles].map(item => (
-                    <div key={item.id} className="group">
+                    <div key={item.id} className={`group relative ${item.is_highlight ? 'bg-brand-green/5 p-4 -mx-4 rounded-xl border-l-4 border-brand-green shadow-sm' : ''}`}>
+                      {item.is_highlight === 1 && (
+                        <span className="absolute -top-3 left-4 bg-slate-800 text-brand-green text-[10px] font-bold px-2 py-0.5 uppercase tracking-tighter rounded">
+                          Empfehlung
+                        </span>
+                      )}
                       <div className="flex justify-between items-end mb-1">
                         <span className="font-serif text-xl font-bold group-hover:text-brand-green transition-colors">{item.name}</span>
                         <div className="flex-grow border-b border-dotted border-slate-300 mx-4 mb-1.5"></div>

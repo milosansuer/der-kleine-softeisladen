@@ -17,9 +17,21 @@ export async function initDb() {
       description TEXT,
       price REAL,
       type TEXT NOT NULL,
-      is_available INTEGER DEFAULT 1
+      is_available INTEGER DEFAULT 1,
+      is_highlight INTEGER DEFAULT 0
+    );
+
+    CREATE TABLE IF NOT EXISTS settings (
+      key TEXT PRIMARY KEY,
+      value TEXT
     );
   `);
+
+  // Initialize announcement setting
+  const bannerExists = await pool.query("SELECT * FROM settings WHERE key = 'announcement'");
+  if (bannerExists.rows.length === 0) {
+    await pool.query("INSERT INTO settings (key, value) VALUES ('announcement', '')");
+  }
 
   // Create default admin if not exists
   const adminResult = await pool.query('SELECT * FROM users WHERE username = $1', ['admin']);

@@ -10,6 +10,7 @@ interface Product {
   price: number;
   type: string;
   is_available: number;
+  is_highlight: number;
 }
 
 const AdminDashboard: React.FC = () => {
@@ -35,6 +36,13 @@ const AdminDashboard: React.FC = () => {
             Eissorten & mehr
           </Link>
           <Link 
+            to="/admin/settings" 
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${location.pathname === '/admin/settings' ? 'bg-brand-green/20 text-slate-800 font-bold' : 'text-slate-500 hover:bg-slate-50'}`}
+          >
+            <Plus size={20} />
+            Einstellungen
+          </Link>
+          <Link 
             to="/admin/invite" 
             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${location.pathname === '/admin/invite' ? 'bg-brand-green/20 text-slate-800 font-bold' : 'text-slate-500 hover:bg-slate-50'}`}
           >
@@ -49,6 +57,7 @@ const AdminDashboard: React.FC = () => {
         <Routes>
           <Route path="/" element={<DashboardHome />} />
           <Route path="/products" element={<ProductManagement />} />
+          <Route path="/settings" element={<GeneralSettings />} />
           <Route path="/invite" element={<InviteAdmin />} />
         </Routes>
       </main>
@@ -210,15 +219,27 @@ const ProductManagement: React.FC = () => {
                   </select>
                 </div>
               </div>
-              <div className="flex items-center gap-3 py-2">
-                <input 
-                  type="checkbox" 
-                  id="is_available"
-                  checked={editingProduct.is_available === 1}
-                  onChange={(e) => setEditingProduct({ ...editingProduct, is_available: e.target.checked ? 1 : 0 })}
-                  className="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-                />
-                <label htmlFor="is_available" className="text-sm font-medium text-slate-700">Verfügbar</label>
+              <div className="flex flex-col gap-3 py-2">
+                <div className="flex items-center gap-3">
+                  <input 
+                    type="checkbox" 
+                    id="is_available"
+                    checked={editingProduct.is_available === 1}
+                    onChange={(e) => setEditingProduct({ ...editingProduct, is_available: e.target.checked ? 1 : 0 })}
+                    className="w-5 h-5 rounded border-slate-300 text-brand-green focus:ring-brand-green"
+                  />
+                  <label htmlFor="is_available" className="text-sm font-medium text-slate-700">Verfügbar</label>
+                </div>
+                <div className="flex items-center gap-3">
+                  <input 
+                    type="checkbox" 
+                    id="is_highlight"
+                    checked={editingProduct.is_highlight === 1}
+                    onChange={(e) => setEditingProduct({ ...editingProduct, is_highlight: e.target.checked ? 1 : 0 })}
+                    className="w-5 h-5 rounded border-slate-300 text-brand-green focus:ring-brand-green"
+                  />
+                  <label htmlFor="is_highlight" className="text-sm font-medium text-slate-700">Als Highlight markieren (z.B. Sorte der Woche)</label>
+                </div>
               </div>
               <div className="flex gap-4 pt-4">
                 <button 
@@ -371,6 +392,74 @@ const InviteAdmin: React.FC = () => {
             className="w-full bg-slate-800 hover:bg-brand-green hover:text-slate-800 text-white font-bold py-4 rounded-xl transition-all shadow-lg disabled:opacity-70"
           >
             {loading ? 'Wird erstellt...' : 'Admin erstellen'}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+const GeneralSettings: React.FC = () => {
+  const [announcement, setAnnouncement] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const response = await client.get('/settings');
+      setAnnouncement(response.data.announcement || '');
+    } catch (error) {
+      console.error('Failed to fetch settings', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await client.put('/settings/announcement', { value: announcement });
+      setMessage({ type: 'success', text: 'Einstellungen gespeichert!' });
+      setTimeout(() => setMessage(null), 3000);
+    } catch (error) {
+      setMessage({ type: 'error', text: 'Fehler beim Speichern.' });
+    }
+  };
+
+  if (loading) return <div className="animate-pulse">Lädt Einstellungen...</div>;
+
+  return (
+    <div className="max-w-2xl">
+      <h1 className="font-serif text-3xl font-bold text-slate-800 mb-8 italic">Globale Einstellungen</h1>
+      
+      {message && (
+        <div className={`p-4 rounded-xl mb-6 flex items-center gap-3 ${message.type === 'success' ? 'bg-green-50 text-green-700 border border-green-100' : 'bg-red-50 text-red-700 border border-red-100'}`}>
+          {message.type === 'success' ? <Check size={20} /> : <AlertCircle size={20} />}
+          <p className="font-medium">{message.text}</p>
+        </div>
+      )}
+
+      <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+        <form onSubmit={handleSave} className="space-y-6">
+          <div>
+            <label className="block text-sm font-bold text-slate-700 mb-2 italic">Ankündigungs-Banner (oben auf der Website)</label>
+            <textarea 
+              value={announcement}
+              onChange={(e) => setAnnouncement(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-green h-32"
+              placeholder="z.B. Heute frische Erdbeeren eingetroffen! oder: Wegen Umbau heute erst ab 14 Uhr."
+            />
+            <p className="text-xs text-slate-400 mt-2 italic">Lass das Feld leer, um das Banner auszublenden.</p>
+          </div>
+          <button 
+            type="submit" 
+            className="w-full bg-slate-800 hover:bg-brand-green hover:text-slate-800 text-white font-bold py-4 rounded-xl transition-all shadow-lg"
+          >
+            Einstellungen speichern
           </button>
         </form>
       </div>

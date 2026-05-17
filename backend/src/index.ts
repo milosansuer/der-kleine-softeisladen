@@ -5,6 +5,7 @@ import { initDb } from './schema';
 import authRoutes from './routes/auth';
 import productRoutes from './routes/products';
 import userRoutes from './routes/users';
+import settingRoutes from './routes/settings';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/settings', settingRoutes);
 
 // Basic health check
 app.get('/health', (req, res) => {
