@@ -16,27 +16,27 @@ const AdminDashboard: React.FC = () => {
   const location = useLocation();
 
   return (
-    <div className="flex flex-col md:flex-row min-h-[calc(100vh-80px)]">
+    <div className="flex flex-col md:flex-row min-h-[calc(100vh-80px)] pt-20">
       {/* Sidebar */}
       <aside className="w-full md:w-64 bg-white border-r border-slate-100 p-6">
         <nav className="space-y-2">
           <Link 
             to="/admin" 
-            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${location.pathname === '/admin' ? 'bg-blue-50 text-blue-600 font-bold' : 'text-slate-500 hover:bg-slate-50'}`}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${location.pathname === '/admin' ? 'bg-brand-green/20 text-slate-800 font-bold' : 'text-slate-500 hover:bg-slate-50'}`}
           >
             <LayoutDashboard size={20} />
             Dashboard
           </Link>
           <Link 
             to="/admin/products" 
-            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${location.pathname === '/admin/products' ? 'bg-blue-50 text-blue-600 font-bold' : 'text-slate-500 hover:bg-slate-50'}`}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${location.pathname === '/admin/products' ? 'bg-brand-green/20 text-slate-800 font-bold' : 'text-slate-500 hover:bg-slate-50'}`}
           >
             <ShoppingBasket size={20} />
             Eissorten & mehr
           </Link>
           <Link 
             to="/admin/invite" 
-            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${location.pathname === '/admin/invite' ? 'bg-blue-50 text-blue-600 font-bold' : 'text-slate-500 hover:bg-slate-50'}`}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${location.pathname === '/admin/invite' ? 'bg-brand-green/20 text-slate-800 font-bold' : 'text-slate-500 hover:bg-slate-50'}`}
           >
             <UserPlus size={20} />
             Admin einladen
@@ -65,7 +65,7 @@ const DashboardHome: React.FC = () => {
           <h3 className="text-slate-500 font-medium mb-2 uppercase tracking-wider text-xs">Aktion erforderlich</h3>
           <p className="text-2xl font-bold text-slate-800">Menü aktualisieren</p>
           <p className="text-slate-500 mt-2">Ändere Preise oder Verfügbarkeiten deiner Sorten.</p>
-          <Link to="/admin/products" className="inline-block mt-6 text-blue-600 font-bold hover:underline">Zum Menü →</Link>
+          <Link to="/admin/products" className="inline-block mt-6 text-brand-green font-bold hover:underline bg-slate-800 px-4 py-2 rounded-lg">Zum Menü →</Link>
         </div>
       </div>
     </div>
@@ -147,7 +147,7 @@ const ProductManagement: React.FC = () => {
         <h1 className="font-serif text-3xl font-bold text-slate-800 italic">Produkte verwalten</h1>
         <button 
           onClick={startAdd}
-          className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-blue-700 transition-colors shadow-lg"
+          className="bg-brand-green text-slate-800 px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-slate-800 hover:text-white transition-all shadow-lg"
         >
           <Plus size={20} />
           Neues Produkt
@@ -230,7 +230,7 @@ const ProductManagement: React.FC = () => {
                 </button>
                 <button 
                   type="submit"
-                  className="flex-1 px-6 py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-100"
+                  className="flex-1 px-6 py-3 rounded-xl bg-slate-800 text-white font-bold hover:bg-brand-green hover:text-slate-800 transition-colors shadow-lg"
                 >
                   Speichern
                 </button>
@@ -260,7 +260,7 @@ const ProductManagement: React.FC = () => {
                 </td>
                 <td className="px-6 py-4">
                   <span className={`text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider ${
-                    product.type === 'icecream' ? 'bg-blue-100 text-blue-700' : 
+                    product.type === 'icecream' ? 'bg-brand-green/30 text-slate-800' : 
                     product.type === 'waffle' ? 'bg-orange-100 text-orange-700' : 
                     'bg-pink-100 text-pink-700'
                   }`}>
@@ -368,7 +368,7 @@ const InviteAdmin: React.FC = () => {
           <button 
             type="submit" 
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-blue-200 disabled:opacity-70"
+            className="w-full bg-slate-800 hover:bg-brand-green hover:text-slate-800 text-white font-bold py-4 rounded-xl transition-all shadow-lg disabled:opacity-70"
           >
             {loading ? 'Wird erstellt...' : 'Admin erstellen'}
           </button>
