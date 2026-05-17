@@ -525,12 +525,20 @@ const MessageInbox: React.FC = () => {
         <div className="grid gap-6">
           {messages.map((msg) => (
             <div key={msg.id} className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 relative group transition-all hover:shadow-md">
-              <button 
-                onClick={() => handleDelete(msg.id)}
-                className="absolute top-6 right-6 p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all opacity-0 group-hover:opacity-100"
-              >
-                <Trash2 size={20} />
-              </button>
+                <div className="flex flex-wrap gap-2 absolute top-6 right-6">
+                  <a 
+                    href={`mailto:${msg.email}?subject=Re: Deine Anfrage an den kleinen Softeis-Laden&body=Hallo ${msg.name},%0D%0A%0D%0Avielen Dank für deine Nachricht!`}
+                    className="p-2 text-slate-400 hover:text-brand-green hover:bg-brand-green/10 rounded-xl transition-all opacity-0 group-hover:opacity-100 flex items-center gap-2 text-xs font-bold uppercase tracking-widest"
+                  >
+                    <Mail size={18} /> Antworten
+                  </a>
+                  <button 
+                    onClick={() => handleDelete(msg.id)}
+                    className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all opacity-0 group-hover:opacity-100"
+                  >
+                    <Trash2 size={20} />
+                  </button>
+                </div>
               
               <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
                 <div className="w-12 h-12 bg-brand-green/20 rounded-2xl flex items-center justify-center text-slate-800 font-bold">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { IceCream, Globe, MessageCircle, Share2 } from 'lucide-react';
 
 const Footer: React.FC = () => {
@@ -38,8 +39,8 @@ const Footer: React.FC = () => {
         <div className="pt-8 border-t border-slate-50 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
           <p>© {new Date().getFullYear()} Der kleine Softeis-Laden. Alle Rechte vorbehalten.</p>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-blue-500 transition-colors">Impressum</a>
-            <a href="#" className="hover:text-blue-500 transition-colors">Datenschutz</a>
+            <Link to="/impressum" className="hover:text-brand-green transition-colors">Impressum</Link>
+            <Link to="/datenschutz" className="hover:text-brand-green transition-colors">Datenschutz</Link>
           </div>
         </div>
       </div>
