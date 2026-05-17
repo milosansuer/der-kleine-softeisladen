@@ -38,7 +38,8 @@ router.post('/', authenticateToken, async (req, res) => {
     );
     res.status(201).json({ id: result.rows[0].id, name, description, price, type, is_available, is_highlight });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to create product' });
+    console.error('Failed to create product:', error);
+    res.status(500).json({ error: 'Failed to create product', details: error instanceof Error ? error.message : 'Unknown error' });
   }
 });
 
@@ -55,7 +56,8 @@ router.put('/:id', authenticateToken, async (req, res) => {
     );
     res.json({ id, name, description, price, type, is_available, is_highlight });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update product' });
+    console.error('Failed to update product:', error);
+    res.status(500).json({ error: 'Failed to update product', details: error instanceof Error ? error.message : 'Unknown error' });
   }
 });
 
