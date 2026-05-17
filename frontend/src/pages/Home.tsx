@@ -167,12 +167,12 @@ const Home: React.FC = () => {
             </div>
             <div className="md:w-1/2">
               <span className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-2 block">Tradition & Leidenschaft</span>
-              <h2 className="font-serif text-4xl font-bold text-slate-800 mb-6 italic">Bonjour, y'all!</h2>
+              <h2 className="font-serif text-4xl font-bold text-slate-800 mb-6 italic">Eis mit Herz seit Generationen</h2>
               <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                Mitten im Herzen von Berlin-Adlershof erwartet dich "Der kleine Softeis-Laden". Wir glauben an die einfachen Dinge im Leben: frische Zutaten, ein Lächeln und das perfekte Softeis.
+                Mitten im Herzen von Berlin-Adlershof erwartet dich "Der kleine Softeis-Laden". Wir glauben an die einfachen Dinge im Leben: frische Zutaten, ein Lächeln und das perfekte, cremig gezapfte Softeis.
               </p>
               <p className="text-slate-600 text-lg leading-relaxed mb-8">
-                Inspiriert von der klassischen französischen Bistro-Kultur und dem Charme von New Orleans, haben wir einen Ort geschaffen, an dem jeder Moment eine kleine Pause vom Alltag ist.
+                Unser Laden ist ein Treffpunkt für Jung und Alt. Ob nach der Schule, in der Mittagspause oder beim Sonntagsspaziergang – wir laden dich ein, einen Moment innezuhalten und den süßen Geschmack der Kindheit zu genießen.
               </p>
               <a 
                 href="https://www.google.com/maps/place/Der+kleine+Softeis-Laden/@52.4158385,13.5783147,17z" 

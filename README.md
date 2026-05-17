@@ -3,7 +3,7 @@
 Eine moderne Website für einen Berliner Softeis-Laden mit integriertem Admin-Bereich zur Verwaltung des Menüs.
 
 ## Features
-- **Modernes Design:** Inspiriert von "Le Petit Bleu", angepasst an das Thema Softeis.
+- **Modernes Design:** Einzigartiges, verspieltes Design, angepasst an das Thema Softeis.
 - **Öffentliches Menü:** Dynamische Anzeige von Eissorten, Waffeln und Toppings.
 - **Admin-Dashboard:** Geschützter Bereich zur Verwaltung von Produkten und Preisen.
 - **Nutzer-Management:** Admins können weitere Admins einladen.
