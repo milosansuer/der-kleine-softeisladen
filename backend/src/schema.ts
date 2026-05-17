@@ -34,11 +34,17 @@ export async function initDb() {
   if (parseInt(productsCount.rows[0].count) === 0) {
     await pool.query(`
       INSERT INTO products (name, description, price, type, is_available) VALUES 
-      ('Vanille', 'Klassisches Vanille-Softeis', 2.50, 'icecream', 1),
-      ('Schokolade', 'Zartbitter-Schokolade', 2.50, 'icecream', 1),
-      ('Waffel klein', 'Klassische Waffel', 0.50, 'waffle', 1),
-      ('Waffel groß', 'Knusprige große Waffel', 1.00, 'waffle', 1),
-      ('Streusel', 'Bunte Zuckerstreusel', 0.30, 'topping', 1)
+      ('Vanille-Klassiker', 'Cremiges Vanille-Softeis nach Traditionsrezept', 2.00, 'icecream', 1),
+      ('Schoko-Traum', 'Zartbitter-Schokolade, besonders cremig', 2.00, 'icecream', 1),
+      ('Mix (Vanille & Schoko)', 'Das Beste aus beiden Welten', 2.20, 'icecream', 1),
+      ('Erdbeere (Saisonal)', 'Fruchtiges Erdbeer-Softeis', 2.50, 'icecream', 1),
+      ('Waffeltüte (Klein)', 'Knusprige kleine Waffel', 0.00, 'waffle', 1),
+      ('Waffeltüte (Mittel)', 'Die klassische Größe', 0.50, 'waffle', 1),
+      ('Waffeltüte (Groß)', 'Für den großen Hunger', 1.00, 'waffle', 1),
+      ('Schokostreusel', 'Klassische dunkle Schokostreusel', 0.30, 'topping', 1),
+      ('Bunte Streusel', 'Der Klassiker für Kinder', 0.30, 'topping', 1),
+      ('Warme Kirschen', 'Fruchtiges Topping für Genießer', 0.80, 'topping', 1),
+      ('Sahne', 'Frisch geschlagene Sahne', 0.50, 'topping', 1)
     `);
     console.log('Initial products seeded');
   }

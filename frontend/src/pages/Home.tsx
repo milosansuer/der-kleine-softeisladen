@@ -159,8 +159,8 @@ const Home: React.FC = () => {
                 <div className="absolute -top-4 -left-4 w-24 h-24 bg-blue-100 rounded-full -z-10"></div>
                 <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-yellow-100 rounded-full -z-10"></div>
                 <img 
-                  src="https://images.unsplash.com/photo-1572312673420-4320986fa887?auto=format&fit=crop&q=80&w=800" 
-                  alt="Unser Laden" 
+                  src="https://images.unsplash.com/photo-1560008511-11c63416e52d?auto=format&fit=crop&q=80&w=800" 
+                  alt="Unser Laden in Adlershof" 
                   className="rounded-3xl shadow-xl border-4 border-white"
                 />
               </div>
