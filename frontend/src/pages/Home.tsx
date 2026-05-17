@@ -68,6 +68,24 @@ const Home: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    // Check if there is a hash in the URL on mount (e.g. after navigating from another page)
+    if (window.location.hash.includes('#')) {
+      const id = window.location.hash.split('#').pop();
+      if (id && !['/', ''].includes(id)) {
+        setTimeout(() => {
+          const element = document.getElementById(id);
+          if (element) {
+            const offset = 80;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          }
+        }, 500); // Small delay to ensure products are loaded
+      }
+    }
+  }, []);
+
   const iceCreams = products.filter(p => p.type === 'icecream' && p.is_available);
   const waffles = products.filter(p => p.type === 'waffle' && p.is_available);
   const toppings = products.filter(p => p.type === 'topping' && p.is_available);
