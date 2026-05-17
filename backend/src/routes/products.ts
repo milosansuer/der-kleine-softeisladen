@@ -7,9 +7,9 @@ const router = Router();
 // Public: Get all products
 router.get('/', async (req, res) => {
   try {
-    const db = await getDb();
-    const products = await db.all('SELECT * FROM products ORDER BY type, name');
-    res.json(products);
+    const pool = getDb();
+    const result = await pool.query('SELECT * FROM products ORDER BY type, name');
+    res.json(result.rows);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch products' });
   }
@@ -24,12 +24,12 @@ router.post('/', authenticateToken, async (req, res) => {
   }
 
   try {
-    const db = await getDb();
-    const result = await db.run(
-      'INSERT INTO products (name, description, price, type, is_available) VALUES (?, ?, ?, ?, ?)',
+    const pool = getDb();
+    const result = await pool.query(
+      'INSERT INTO products (name, description, price, type, is_available) VALUES ($1, $2, $3, $4, $5) RETURNING id',
       [name, description, price, type, is_available !== undefined ? is_available : 1]
     );
-    res.status(201).json({ id: result.lastID, name, description, price, type, is_available });
+    res.status(201).json({ id: result.rows[0].id, name, description, price, type, is_available });
   } catch (error) {
     res.status(500).json({ error: 'Failed to create product' });
   }
@@ -41,9 +41,9 @@ router.put('/:id', authenticateToken, async (req, res) => {
   const { name, description, price, type, is_available } = req.body;
 
   try {
-    const db = await getDb();
-    await db.run(
-      'UPDATE products SET name = ?, description = ?, price = ?, type = ?, is_available = ? WHERE id = ?',
+    const pool = getDb();
+    await pool.query(
+      'UPDATE products SET name = $1, description = $2, price = $3, type = $4, is_available = $5 WHERE id = $6',
       [name, description, price, type, is_available, id]
     );
     res.json({ id, name, description, price, type, is_available });
@@ -57,8 +57,8 @@ router.delete('/:id', authenticateToken, async (req, res) => {
   const { id } = req.params;
 
   try {
-    const db = await getDb();
-    await db.run('DELETE FROM products WHERE id = ?', [id]);
+    const pool = getDb();
+    await pool.query('DELETE FROM products WHERE id = $1', [id]);
     res.status(204).send();
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete product' });

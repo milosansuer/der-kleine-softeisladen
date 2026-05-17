@@ -1,20 +1,21 @@
-import sqlite3 from 'sqlite3';
-import { open, Database } from 'sqlite';
-import path from 'path';
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
 
-let db: Database | null = null;
+dotenv.config();
 
-export async function getDb(): Promise<Database> {
-  if (db) {
-    return db;
+let pool: Pool | null = null;
+
+export function getDb() {
+  if (pool) {
+    return pool;
   }
 
-  const dbPath = process.env.DATABASE_PATH || path.join(__dirname, '../database.sqlite');
-
-  db = await open({
-    filename: dbPath,
-    driver: sqlite3.Database,
+  pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
   });
 
-  return db;
+  return pool;
 }

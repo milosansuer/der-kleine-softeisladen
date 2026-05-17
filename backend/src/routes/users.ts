@@ -14,13 +14,13 @@ router.post('/invite', authenticateToken, async (req, res) => {
   }
 
   try {
-    const db = await getDb();
+    const pool = getDb();
     const passwordHash = await bcrypt.hash(password, 10);
     
-    await db.run('INSERT INTO users (username, password_hash) VALUES (?, ?)', [username, passwordHash]);
+    await pool.query('INSERT INTO users (username, password_hash) VALUES ($1, $2)', [username, passwordHash]);
     res.status(201).json({ message: 'User created successfully', username });
   } catch (error: any) {
-    if (error.message.includes('UNIQUE constraint failed')) {
+    if (error.message.includes('unique constraint') || error.code === '23505') {
       return res.status(400).json({ error: 'Username already exists' });
     }
     res.status(500).json({ error: 'Failed to create user' });
