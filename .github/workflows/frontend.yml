@@ -29,10 +29,13 @@ jobs:
       - name: Install dependencies
         run: cd frontend && npm ci
 
+      - name: Create env file
+        run: |
+          echo "VITE_API_URL=${{ vars.VITE_API_URL || secrets.VITE_API_URL }}" > frontend/.env
+          echo "Erstellte .env Datei für den Build"
+
       - name: Build
         run: cd frontend && npm run build
-        env:
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
