@@ -271,7 +271,7 @@ const Home: React.FC = () => {
                 Unsere helle, grüne Fassade lädt dich ein, einen Moment innezuhalten. Bei uns ist jeder Gast willkommen – vom kleinen Entdecker bis zum lebenslangen Genießer.
               </p>
               <a 
-                href="https://www.google.com/maps/place/Der+kleine+Softeis-Laden/@52.4158385,13.5783147,17z" 
+                href="https://www.google.com/maps/place/Der+kleine+Softeis-Laden/@52.4158385,13.5783147,17z/data=!4m6!3m5!1s0x47a8471a6cda45e5:0x50940e14e6cabd31!8m2!3d52.4158385!4d13.5783147!16s%2Fg%2F11px92pfly?entry=ttu&g_ep=EgoyMDI2MDUxMy4wIKXMDSoASAFQAw%3D%3D" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 bg-brand-green text-slate-800 px-8 py-4 hover:bg-slate-800 hover:text-white transition-all uppercase tracking-widest text-sm font-bold"
