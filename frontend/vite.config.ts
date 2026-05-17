@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/der-kleine-softeisladen/',
   plugins: [
     react(),
     tailwindcss(),
