@@ -44,15 +44,15 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Menu */}
         <div className={`hidden md:flex items-center gap-10 font-bold uppercase tracking-[0.2em] text-xs transition-colors ${textColor}`}>
-          <a href="#/menu" className="hover:text-brand-green transition-colors relative group">
+          <a href="#menu" className="hover:text-brand-green transition-colors relative group">
             Menü
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-green transition-all group-hover:w-full"></span>
           </a>
-          <a href="#/about" className="hover:text-brand-green transition-colors relative group">
+          <a href="#about" className="hover:text-brand-green transition-colors relative group">
             Über uns
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-green transition-all group-hover:w-full"></span>
           </a>
-          <a href="#/contact" className="hover:text-brand-green transition-colors relative group">
+          <a href="#contact" className="hover:text-brand-green transition-colors relative group">
             Kontakt
           </a>
         </div>
@@ -99,9 +99,9 @@ const Navbar: React.FC = () => {
             className="md:hidden bg-white border-t border-slate-100 overflow-hidden"
           >
             <div className="flex flex-col p-6 gap-6 font-bold uppercase tracking-widest text-sm text-slate-800">
-              <a href="#/menu" onClick={() => setIsMobileMenuOpen(false)}>Menü</a>
-              <a href="#/about" onClick={() => setIsMobileMenuOpen(false)}>Über uns</a>
-              <a href="#/contact" onClick={() => setIsMobileMenuOpen(false)}>Kontakt</a>
+              <a href="#menu" onClick={() => setIsMobileMenuOpen(false)}>Menü</a>
+              <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>Über uns</a>
+              <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Kontakt</a>
             </div>
           </motion.div>
         )}

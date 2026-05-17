@@ -147,12 +147,22 @@ const Home: React.FC = () => {
       </section>
 
       {/* Intro Quote */}
-      <section className="py-20 bg-white bg-stripes">
-        <div className="container mx-auto px-6 text-center">
-          <motion.div {...fadeIn}>
-            <p className="font-serif text-3xl md:text-4xl italic text-brand-green max-w-4xl mx-auto leading-relaxed bg-slate-800/5 py-8 rounded-full px-12">
-              "Ein Tag ohne Softeis ist möglich, aber sinnlos. Wir servieren Kindheitserinnerungen in der Waffel."
+      <section className="py-24 bg-slate-900 overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div className="absolute top-10 left-10 w-64 h-64 bg-brand-green rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-10 right-10 w-96 h-96 bg-brand-green rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+          >
+            <p className="font-serif text-3xl md:text-5xl italic text-white max-w-5xl mx-auto leading-tight text-shadow">
+              "Ein Tag ohne Softeis ist möglich, aber <span className="text-brand-green not-italic font-bold">sinnlos</span>. Wir servieren Kindheitserinnerungen in der Waffel."
             </p>
+            <div className="w-24 h-1 bg-brand-green mx-auto mt-10 rounded-full"></div>
           </motion.div>
         </div>
       </section>
