@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ShoppingBag, MapPin, Clock, Phone, ExternalLink } from 'lucide-react';
+import { MapPin, Clock, Phone, ExternalLink } from 'lucide-react';
 import client from '../api/client';
 
 interface Product {

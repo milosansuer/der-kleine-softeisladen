@@ -1,5 +1,5 @@
 import React from 'react';
-import { IceCream, Instagram, Facebook, Twitter } from 'lucide-react';
+import { IceCream, Globe, MessageCircle, Share2 } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -24,13 +24,13 @@ const Footer: React.FC = () => {
 
           <div className="flex gap-4">
             <a href="#" className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-500 transition-all">
-              <Instagram size={20} />
+              <Globe size={20} />
             </a>
             <a href="#" className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-500 transition-all">
-              <Facebook size={20} />
+              <MessageCircle size={20} />
             </a>
             <a href="#" className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-500 transition-all">
-              <Twitter size={20} />
+              <Share2 size={20} />
             </a>
           </div>
         </div>

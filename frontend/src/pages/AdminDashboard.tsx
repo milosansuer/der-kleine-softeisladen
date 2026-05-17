@@ -74,7 +74,6 @@ const DashboardHome: React.FC = () => {
 
 const ProductManagement: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
   const [editingProduct, setEditingProduct] = useState<Partial<Product> | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
@@ -89,8 +88,6 @@ const ProductManagement: React.FC = () => {
       setProducts(response.data);
     } catch (error) {
       console.error('Failed to fetch products', error);
-    } finally {
-      setLoading(false);
     }
   };
 
